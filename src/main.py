@@ -13,6 +13,24 @@ meme_api = 'https://meme-api.com/gimme'
 
 client = Groq(api_key="<key>")
 
+class CircularArray:
+    def __init__(self, size):
+        self.size = size
+        self.array = [None] * size
+        self.start = 0
+        self.end = 0
+
+    def append(self, element):
+        if self.array[self.end] is not None:
+            self.start = (self.start + 1) % self.size
+        self.array[self.end] = element
+        self.end = (self.end + 1) % self.size
+
+    def get(self, index):
+        if index < 0 or index >= self.size:
+            return None
+        return self.array[(self.start + index) % self.size]
+
 def compile_python_code(input_code):
     try:
         # Create a temporary Python file
@@ -37,10 +55,11 @@ def call(prompt, conversation=None):
 
     if conversation is None:
         conversation = []
+        messages = [{"role": "user", "content": prompt}]
     else:
         conversation.append(prompt)
-
-    messages = [{"role": "user", "content": message} for message in conversation]
+        messages = [{"role": "user", "content": conversation.get(i)} for i in range(conversation.size) if
+                    conversation.get(i)]
 
     if not conversation:
         messages.insert(0, {"role": "system", "content": introduction})
@@ -75,7 +94,7 @@ async def ask(ctx, *, question: str):
     user_id = ctx.author.id
     if user_id not in conversations:
         message_content = call(question)
-        conversations[user_id] = []
+        conversations[user_id] = CircularArray(15)
     else:
         conversations[user_id].append(question)
         message_content = call(question, conversations[user_id])
