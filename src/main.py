@@ -54,7 +54,6 @@ def call(prompt, conversation=None):
     """ if not conversation else ""
 
     if conversation is None:
-        conversation = []
         messages = [{"role": "user", "content": prompt}]
     else:
         conversation.append(prompt)
