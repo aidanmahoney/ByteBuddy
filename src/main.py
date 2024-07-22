@@ -26,8 +26,7 @@ def compile_python_code(input_code):
         return f"Error during compilation: {e}"
 
 def call(prompt, conversation=None):
-    if conversation is None:
-        conversation = []
+
     introduction = """
         You are a knowledgeable and experienced programming expert, 
         able to provide detailed explanations, write code, and solve problems. 
@@ -36,15 +35,22 @@ def call(prompt, conversation=None):
         as well as various frameworks, libraries, and technologies.
     """ if not conversation else ""
 
+    if conversation is None:
+        conversation = []
+    else:
+        conversation.append(prompt)
+
+    messages = [{"role": "user", "content": message} for message in conversation]
+
+    if not conversation:
+        messages.insert(0, {"role": "system", "content": introduction})
+
     payload = {
-        "messages": [
-            * [{"role": "user", "content": message} for message in conversation],
-            {"role": "user", "content": prompt},
-            {"role": "system", "content": introduction}
-        ],
+        "messages": messages,
         "model": "mixtral-8x7b-32768",
-        "temperature": 0.7
+        "temperature": 0.4
     }
+
     response = client.chat.completions.create(**payload)
     return response.choices[0].message.content
 
@@ -60,19 +66,19 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 conversations = {}
 
-previous_question = None
-
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user.name}')
 
 @bot.command(name="ask", description="Ask a question")
-async def ask(ctx, question: str):
+async def ask(ctx, *, question: str):
     user_id = ctx.author.id
     if user_id not in conversations:
+        message_content = call(question)
         conversations[user_id] = []
-    conversations[user_id].append(question)
-    message_content = call(question, conversations)  # Use None for previous question
+    else:
+        conversations[user_id].append(question)
+        message_content = call(question, conversations[user_id])
     await ctx.send(message_content)
 
 @bot.command(name="compile", description="Compile Python code")
@@ -94,5 +100,4 @@ async def meme(ctx):
     message_content = get_meme()
     await ctx.send(message_content)
 
-# Handle HTTP requests here
 bot.run('<token>')
