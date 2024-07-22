@@ -34,10 +34,10 @@ class CircularArray:
 def compile_python_code(input_code):
     try:
         # Create a temporary Python file
-        with open("temp", "w") as f:
+        with open("temp.py", "w") as f:
             f.write(input_code)
         # Execute the Python code
-        process = subprocess.run(["python", "temp"], capture_output=True)
+        process = subprocess.run(["python", "temp.py"], capture_output=True)
         # Return the output
         return process.stdout.decode()
     except Exception as e:
@@ -99,15 +99,12 @@ async def ask(ctx, *, question: str):
         message_content = call(question, conversations[user_id])
     await ctx.send(message_content)
 
-@bot.command(name="compile", description="Compile Python code")
+@bot.command(name="compile", description="Compile and run Python code")
 async def compile(ctx, *, code: str):
     try:
         # Attempt to compile the code
-        compiled_code = compile(code, "<string>", "exec")
-        message_content = "Code compiled successfully!"
-    except SyntaxError as e:
-        # Handle syntax errors
-        message_content = f"Syntax error: {e}"
+        output = compile_python_code(code)
+        message_content = f"Output: {output}" if output else "Code executed successfully!"
     except Exception as e:
         # Handle other exceptions
         message_content = f"An error occurred: {e}"
