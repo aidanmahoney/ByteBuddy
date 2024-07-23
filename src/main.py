@@ -53,6 +53,7 @@ def call(prompt, conversation=None):
         as well as various frameworks, libraries, and technologies.
     """ if not conversation else ""
 
+    # if the conversation has not started
     if conversation is None:
         messages = [{"role": "user", "content": prompt}]
     else:
