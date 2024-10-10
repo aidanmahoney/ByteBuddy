@@ -1,5 +1,5 @@
 # ByteBuddy
-A programming assistant for Discord users
+A programming assistant for Discord users.
 ## Overview
 ByteBuddy is a discord bot with programming capabilities. You can add it to your own discord server and prompt it with commands to assist you with coding. It integrates Mixtral's conversational AI to provide expert level coding assistance. It can also compile code and even send memes. The script implements a circular array class which allows the bot store and retrieve previous conversations for contexualized responses.
 ## Commands
