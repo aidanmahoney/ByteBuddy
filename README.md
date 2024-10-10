@@ -14,3 +14,6 @@ Prefix: `!`
 - Discord
 - Requests
 - Groq
+## Credits
+- Aidan Mahoney
+- Various sources online
