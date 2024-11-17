@@ -53,7 +53,7 @@ def call(prompt, conversation=None):
         as well as various frameworks, libraries, and technologies.
     """ if not conversation else ""
 
-    # send only first phrase only if conversation has not started
+    # Send only first phrase only if conversation has not started
     if conversation is None:
         messages = [{"role": "user", "content": prompt}]
     else:
@@ -61,7 +61,7 @@ def call(prompt, conversation=None):
         messages = [{"role": "user", "content": conversation.get(i)} for i in range(conversation.size) if
                     conversation.get(i)]
 
-    # send introduction if conversation has not started
+    # Send introduction if conversation has not started
     if not conversation:
         messages.insert(0, {"role": "system", "content": introduction})
 
