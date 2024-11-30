@@ -4,7 +4,6 @@ import subprocess
 import requests
 import discord
 import threading
-
 from discord.ext import commands
 from groq import Groq
 
