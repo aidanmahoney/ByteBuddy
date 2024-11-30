@@ -8,7 +8,6 @@ import threading
 from discord.ext import commands
 from groq import Groq
 
-# Meme API endpoint
 meme_api = 'https://meme-api.com/gimme'
 
 client = Groq(api_key="<key>")
@@ -33,12 +32,9 @@ class CircularArray:
 
 def compile_python_code(input_code):
     try:
-        # Create a temporary Python file
         with open("temp.py", "w") as f:
             f.write(input_code)
-        # Execute the Python code
         process = subprocess.run(["python", "temp.py"], capture_output=True)
-        # Return the output
         return process.stdout.decode()
     except Exception as e:
         return f"Error during compilation: {e}"
@@ -53,16 +49,14 @@ def call(user_query, context):
         as well as various frameworks, libraries, and technologies.
         Context: {context}
     """
-
-    # Send only first phrase only if conversation has not started
+    
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_query}
     ]
 
-    # Send introduction if conversation has not started
     if not conversation:
-        messages.insert(0, {"role": "system", "content": introduction})
+        messages.insert(0, {"role": "system", "content": system_prompt})
 
     payload = {
         "messages": messages,
@@ -93,21 +87,20 @@ async def on_ready():
 async def ask(ctx, *, question: str):
     user_id = ctx.author.id
     if user_id not in conversations:
-        message_content = call(question)
-        conversations[user_id] = CircularArray(15)
+        conversations[user_id] = CircularArray(15) 
+        message_content = call(question, "")
     else:
         conversations[user_id].append(question)
-        message_content = call(question, conversations[user_id])
+        context = " ".join([conversations[user_id].get(i) for i in range(conversations[user_id].size)])
+        message_content = call(question, context) 
     await ctx.send(message_content)
 
 @bot.command(name="compile", description="Compile and run Python code")
 async def compile(ctx, *, code: str):
     try:
-        # Attempt to compile the code
         output = compile_python_code(code)
         message_content = f"Output: {output}" if output else "Code executed successfully!"
     except Exception as e:
-        # Handle other exceptions
         message_content = f"An error occurred: {e}"
     await ctx.send(f"```\n{message_content}\n```")
 
