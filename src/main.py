@@ -1,11 +1,10 @@
-import json
+from discord.ext import commands
+from groq import Groqimport json
 import os
 import subprocess
 import requests
 import discord
 import threading
-from discord.ext import commands
-from groq import Groq
 
 meme_api = 'https://meme-api.com/gimme'
 
