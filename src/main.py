@@ -43,23 +43,22 @@ def compile_python_code(input_code):
     except Exception as e:
         return f"Error during compilation: {e}"
 
-def call(prompt, conversation=None):
+def call(user_query, context):
 
-    introduction = """
+    system_prompt = f"""
         You are a knowledgeable and experienced programming expert, 
         able to provide detailed explanations, write code, and solve problems. 
         You can answer questions, provide examples, and engage in conversations. 
         Your expertise includes languages such as Python, Java, JavaScript, and C++, 
         as well as various frameworks, libraries, and technologies.
-    """ if not conversation else ""
+        Context: {context}
+    """
 
     # Send only first phrase only if conversation has not started
-    if conversation is None:
-        messages = [{"role": "user", "content": prompt}]
-    else:
-        conversation.append(prompt)
-        messages = [{"role": "user", "content": conversation.get(i)} for i in range(conversation.size) if
-                    conversation.get(i)]
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_query}
+    ]
 
     # Send introduction if conversation has not started
     if not conversation:
