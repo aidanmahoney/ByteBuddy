@@ -55,9 +55,6 @@ def call(user_query, context):
         {"role": "user", "content": user_query}
     ]
 
-    if not conversation:
-        messages.insert(0, {"role": "system", "content": system_prompt})
-
     payload = {
         "messages": messages,
         "model": "mixtral-8x7b-32768",
