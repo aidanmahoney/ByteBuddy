@@ -40,7 +40,6 @@ def compile_python_code(input_code):
         return f"Error during compilation: {e}"
 
 def call(user_query, context):
-
     system_prompt = f"""
         You are a knowledgeable and experienced programming expert, 
         able to provide detailed explanations, write code, and solve problems. 
