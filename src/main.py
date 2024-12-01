@@ -4,7 +4,6 @@ import os
 import subprocess
 import requests
 import discord
-import threading
 
 meme_api = 'https://meme-api.com/gimme'
 
