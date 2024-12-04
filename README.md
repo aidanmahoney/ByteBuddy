@@ -10,10 +10,10 @@ Prefix: `!`
 ## Files
 - `main.py`: Contains all methods for a fully functioning Discord bot with coding capabilities
 ## Requirements
-- Python 3.x
-- Discord
-- Requests
-- Groq
+- `Python 3.x`
+- `discord`
+- `requests`
+- `groq`
 ## Credits
 - Aidan Mahoney
 - Various sources online
