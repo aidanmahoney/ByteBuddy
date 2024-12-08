@@ -1,5 +1,6 @@
 from discord.ext import commands
-from groq import Groqimport json
+from groq import Groq
+import json
 import os
 import subprocess
 import requests
