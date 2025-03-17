@@ -85,7 +85,7 @@ async def ask(ctx, *, question: str):
         message_content = call(question, "")
     else:
         conversations[user_id].append(question)
-        context = " ".join([conversations[user_id].get(i) for i in range(conversations[user_id].size)])
+        context = " ".join(filter(None, [conversations[user_id].get(i) for i in range(conversations[user_id].size)]))
         message_content = call(question, context) 
     await ctx.send(message_content)
 
