@@ -70,7 +70,7 @@ def _get_meme() -> str:
         data = r.json()
         return data.get("url", "No URL in response.")
     except Exception:
-        return "⚠️ Could not fetch a meme right now."
+        return "Could not fetch a meme right now."
 
 async def get_meme() -> str:
     loop = asyncio.get_running_loop()
@@ -109,3 +109,4 @@ async def _meme(ctx):
     await ctx.send(url)
 
 bot.run(DISCORD_TOKEN)
+
