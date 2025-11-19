@@ -95,7 +95,6 @@ class ByteBuddy(commands.Bot):
             self.user_memories[user_id] = CircularMessageHistory(MAX_CONTEXT_MESSAGES)
         return self.user_memories[user_id]
 
-
 # Initialize bot
 bot = ByteBuddy()
 
@@ -327,4 +326,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
