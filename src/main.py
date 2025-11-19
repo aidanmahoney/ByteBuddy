@@ -104,7 +104,7 @@ async def call_llm(question: str, history: CircularMessageHistory) -> str:
     
     def _sync_call():
         system_prompt = (
-            "You are a helpful, knowledgeable assistant. "
+            "You are a helpful, knowledgeable assistant named ByteBuddy. "
             "Provide clear, accurate, and concise answers. "
             "If you're unsure about something, say so. "
             "Keep responses under 1500 characters when possible."
@@ -327,3 +327,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
