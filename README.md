@@ -11,9 +11,9 @@ Prefix: `!`
 - `main.py`: Contains all methods for a fully functioning Discord bot with coding capabilities
 ## Requirements
 - `Python 3.x`
-- `discord`
-- `requests`
-- `groq`
+- `discord.py>=2.3.0`
+- `requests>=2.31.0`
+- `groq>=0.4.0>`
 ## Credits
 - Aidan Mahoney
 - Various sources online
