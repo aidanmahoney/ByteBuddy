@@ -95,8 +95,10 @@ class ByteBuddy(commands.Bot):
             self.user_memories[user_id] = CircularMessageHistory(MAX_CONTEXT_MESSAGES)
         return self.user_memories[user_id]
 
+
 # Initialize bot
 bot = ByteBuddy()
+
 
 async def call_llm(question: str, history: CircularMessageHistory) -> str:
     """Call the Groq LLM with conversation history."""
@@ -326,5 +328,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
