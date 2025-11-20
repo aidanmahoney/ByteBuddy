@@ -13,7 +13,7 @@ Prefix: `!`
 - `Python 3.x`
 - `discord.py>=2.3.0`
 - `requests>=2.31.0`
-- `groq>=0.4.0>`
+- `groq>=0.4.0`
 ## Credits
 - Aidan Mahoney
 - Various sources online
