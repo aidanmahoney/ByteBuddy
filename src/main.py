@@ -1,6 +1,7 @@
 import os
 import asyncio
 import logging
+import time
 from typing import Optional
 
 import discord
@@ -62,7 +63,7 @@ class ByteBuddy(commands.Bot):
         super().__init__(
             command_prefix="!",
             intents=intents,
-            help_command=commands.DefaultHelpCommand()
+            help_command=None
         )
         
         # Store user conversation histories
@@ -78,7 +79,6 @@ class ByteBuddy(commands.Bot):
     
     def check_rate_limit(self, user_id: int) -> bool:
         """Check if user is rate limited."""
-        import time
         current_time = time.time()
         
         if user_id in self.rate_limits:
